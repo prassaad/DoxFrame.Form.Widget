@@ -124,6 +124,16 @@ const Form = () => {
 				 
 			  </>
 			  )
+			case 'Submit':
+			return (
+			   <>
+			     <div className={style.actions}>
+                    <button type='submit' disabled={submitting || !formValid}>
+                        {submitting ? 'Sending...' : field_type.Name }
+                    </button>
+                </div>
+			   </>
+			)
 			default:
 			return null;
 		}
@@ -151,7 +161,7 @@ const Form = () => {
 
 
         console.log('Sending form', { emailValue, messageValue });
-        service?.sendForm({ email: emailValue, message: messageValue })
+        service?.sendForm({"data": JSON.stringify({ emailValue, messageValue }) })
             .then(() => {
                 router.setRoute('/');
             })
@@ -163,13 +173,7 @@ const Form = () => {
  
     return (
         <div>
-				<Fragment></Fragment>
-				{
-					  layout.map((q, i) => (
-						renderForm(q)	 
-					 ))
-					
-				}
+			<Fragment></Fragment>
 			 
             <form
                 onSubmit={(e) => {
@@ -178,13 +182,14 @@ const Form = () => {
                 }}>
                 {serverError && <div className={style.error}>{serverError}</div>}
                
-				
+				{
+					  layout.map((q, i) => (
+						renderForm(q)	 
+					 ))
+					
+				}
 				 
-                <div className={style.actions}>
-                    <button type='submit' disabled={submitting || !formValid}>
-                        {submitting ? 'Sending...' : 'Send'}
-                    </button>
-                </div>
+              
             </form>
         </div >);
 };

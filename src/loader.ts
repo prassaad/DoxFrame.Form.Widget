@@ -47,6 +47,7 @@ export default (
 
     // this will an root element of the widget instance
     let targetElement: HTMLElement;
+	let rootContaierElement: '';
 
     // iterate over all methods that were called up until now
     for (let i = 0; i < loaderObject.q.length; i++) {
@@ -69,7 +70,13 @@ export default (
                 const wrappingElement = loadedObject.element ?? win.document.body;
                 targetElement = wrappingElement.appendChild(win.document.createElement('div'));
                 targetElement.setAttribute('id', `widget-${instanceName}`);
-                render(targetElement, loadedObject);
+				
+				// host root container element
+				// future need to pass as parameter
+				rootContaierElement = win.document.getElementById('layout-conainer');
+				rootContaierElement.appendChild(targetElement);
+				
+                render(rootContaierElement, loadedObject);
 
                 // store indication that widget instance was initialized
                 win[`loaded-${instanceName}`] = true;

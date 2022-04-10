@@ -34,9 +34,8 @@ export interface GetFormModel {
 }
 
 export interface FormModel {
-    email: string;
-    message: string;
-}
+    data: string;
+ }
 
 export interface WidgetApi {
     //getFaq: () => Promise<FaqModel[]>;

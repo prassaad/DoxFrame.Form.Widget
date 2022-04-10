@@ -50,12 +50,13 @@ export class ApiClient implements WidgetApi {
 
     public getForm = async () => await this.callApi<GetFormModel>({ url: '/api/Forms/ec5d9816-f093-4867-90d0-a09aadbe3304/7ce330fe-10be-456f-8133-9d53b78fe70a/FormLayout' });
 
-    public sendForm = async (requestData: FormModel) =>
-        await this.callApi<void>({ url: `/contact`, method: 'POST', requestData });
+    public sendForm = async (requestData: FormModel) => 
+         await this.callApi<void>({ url: '/api/FormsData/create', method: 'POST', requestData });
 
+ 
     /**
      * Helper with saint defaults to perform an HTTP call.
-     * @param request A request to perform.
+     * @param request A request to perform.ng
      */
     private callApi<TResponse = any, TRequest = any>(request: ApiRequest<TRequest>): Promise<TResponse> {
         return new Promise((resolve, reject) => {
